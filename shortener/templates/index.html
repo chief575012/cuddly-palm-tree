@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>URL Shortener</h1>
+  <p class="lead">Paste a long link, get a short one.</p>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+      <div class="flash {{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endwith %}
+
+  <form method="post" action="{{ url_for('main.index') }}">
+    <label for="url">Long URL</label>
+    <input type="url" id="url" name="url" placeholder="https://example.com/very/long/path" required />
+
+    <label for="code">Custom code (optional)</label>
+    <input type="text" id="code" name="code" pattern="[A-Za-z0-9]+" placeholder="my-link" />
+
+    <button type="submit">Shorten</button>
+  </form>
+
+  {% if short_url %}
+    <div class="result">
+      Your short link:
+      <a href="{{ short_url }}" target="_blank" rel="noopener">{{ short_url }}</a>
+    </div>
+  {% endif %}
+
+  <footer>
+    JSON API: <code>POST /api/shorten</code> with <code>{"url": "..."}</code>
+  </footer>
+{% endblock %}
