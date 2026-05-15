@@ -24,9 +24,9 @@ jobs:
       - name: Install Tailscale
         run: |
           # Swapped to the .exe link because Tailscale removed the .msi direct link
-          Invoke-WebRequest -Uri "https://pkgs.tailscale.com/stable/tailscale-setup-1.98.2.exe" -OutFile "tailscale-setup.exe"
+          Invoke-WebRequest -Uri "https://pkgs.tailscale.com/stable/tailscale-setup-latest.exe" -OutFile "tailscale-setup.exe"
           Start-Process -FilePath "tailscale-setup.exe" -ArgumentList "/quiet" -Wait
-
+          sleep(5)
       - name: Start Tailscale & Wait for Login
         run: |
           & "C:\Program Files\Tailscale\tailscale.exe" up --hostname=cat
