@@ -26,12 +26,7 @@ jobs:
           sudo defaults write /Library/Preferences/com.apple.RemoteManagement \
           ARD_AllowDirectLogins -bool true
 
-      - name: Create RDP User
-        run: |
-          # Hardcoded to bypass generation errors but still pass Windows complexity rules
-          $Password = "RootUser123!"
-          net user RDP $Password /add
-          net localgroup administrators RDP /add
+    
 
       - name: Install Tailscale
         run: |
